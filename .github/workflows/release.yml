@@ -15,7 +15,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Package the plugin folder into a ZIP
+      # 2. Package ONLY the plugin subfolder into a ZIP named SemanticSegEval.zip
+      #    The ZIP must contain SemanticSegEval/ at its root so QGIS extracts it
+      #    into a folder named exactly "SemanticSegEval" (no version suffix).
       - name: Build SemanticSegEval.zip
         run: zip -r SemanticSegEval.zip SemanticSegEval/
 
@@ -31,12 +33,15 @@ jobs:
             QGIS 3 plugin for evaluating binary semantic segmentation masks
             against a Ground Truth raster.
 
-            ### Quick install
-            1. Download `SemanticSegEval.zip` below.
+            ### Install
+            1. Download **`SemanticSegEval.zip`** from the Assets section below
+               (not the "Source code" archives — those will not work).
             2. In QGIS: **Plugins → Manage and Install Plugins → Install from ZIP**.
+            3. Browse to the downloaded `SemanticSegEval.zip` and click **Install Plugin**.
 
             See [README.md](https://github.com/${{ github.repository }}/blob/main/README.md)
-            for full installation and usage instructions.
+            for full installation and usage instructions including the opencv-python
+            dependency that must be installed before first use.
 
             See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)
             for what changed in this version.
