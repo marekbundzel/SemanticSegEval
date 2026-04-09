@@ -1,0 +1,28 @@
+[general]
+name=Semantic Segmentation Evaluator
+qgisMinimumVersion=3.16
+description=Evaluates semantic segmentation quality against Ground Truth GeoTIFFs. Produces an error map raster, pixel-level statistics (Accuracy, F1, MCC, IoU, MOR10R, …) and a per-object histogram. Designed for archaeological LiDAR data but applicable to any binary segmentation.
+version=1.0.0
+author=Marek Bundzel (TU Kosice) – plugin wrapper
+email=marek.bundzel@tuke.sk
+about=
+    This plugin loads a Ground Truth and a Prediction GeoTIFF (each containing a
+    single band of 0/1 values), computes the classification error map
+    (TN=0, TP=2, FN=-1, FP=1), saves it as a GeoTIFF with correct georeferencing,
+    inserts it into the current QGIS project above the Prediction layer with
+    prescribed symbology, and displays pixel-level quality statistics plus a
+    per-object detection histogram.
+
+    Quality measures are explained in:
+    Bundzel et al. (2020), Remote Sensing 12(22):3685
+    https://www.mdpi.com/2072-4292/12/22/3685  §4.5
+
+tracker=https://github.com/placeholder/SemanticSegEval/issues
+repository=https://github.com/placeholder/SemanticSegEval
+homepage=https://github.com/placeholder/SemanticSegEval
+
+tags=raster,accuracy,semantic segmentation,lidar,ground truth,confusion matrix,iou,f1,mcc
+category=Raster
+icon=icon.png
+experimental=False
+deprecated=False
