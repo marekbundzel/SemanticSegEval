@@ -1,0 +1,45 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'          # fires on tags like v1.0.0, v1.2.3, etc.
+  workflow_dispatch:       # allows a manual run from the GitHub Actions UI
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Package the plugin folder into a ZIP
+      - name: Build SemanticSegEval.zip
+        run: zip -r SemanticSegEval.zip SemanticSegEval/
+
+      # 3. On a version tag: create a GitHub Release and upload the ZIP
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Semantic Segmentation Evaluator ${{ github.ref_name }}"
+          body: |
+            ## Semantic Segmentation Evaluator ${{ github.ref_name }}
+
+            QGIS 3 plugin for evaluating binary semantic segmentation masks
+            against a Ground Truth raster.
+
+            ### Quick install
+            1. Download `SemanticSegEval.zip` below.
+            2. In QGIS: **Plugins → Manage and Install Plugins → Install from ZIP**.
+
+            See [README.md](https://github.com/${{ github.repository }}/blob/main/README.md)
+            for full installation and usage instructions.
+
+            See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)
+            for what changed in this version.
+          files: SemanticSegEval.zip
+          draft: false
+          prerelease: false
